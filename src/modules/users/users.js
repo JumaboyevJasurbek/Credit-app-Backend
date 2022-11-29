@@ -1,19 +1,28 @@
 import { ErrorHandler } from "../../exceptions/ErrorHandler.js";
 import { sign } from "../../utils/jwt.js";
-import { loginAdmin, createGroup } from "./model.js";
+import { findBank, loginAdmin } from "./model.js";
 
 export default {
     GET: async (req, res, next) => {
-        const { username, password, role } = req.body;
+        res.json("admin");
+    },
 
-        // const { id, role } = req;
+    POST: async (req, res, next) => {
+        const { username, password } = req.filtered;
 
-        const foundUser = await loginAdmin(username, password, role);
+        const foundUser = await loginAdmin(username, password).catch(() =>
+            next(new ErrorHandler(), 503)
+        );
 
-        if (foundUser) {
+        console.log(req.body);
+
+        console.log(foundUser);
+
+        if (foundUser && foundUser.length) {
+            const [user] = foundUser;
             res.status(200).json({
                 status: 200,
-                message: "Logged",
+                message: "User found",
                 token: sign({ user_id: foundUser.user_id }),
                 data: foundUser,
             });
@@ -25,33 +34,26 @@ export default {
             });
         }
     },
-
-    POST: async (req, res, next) => {
-        const { name } = req.filtered;
-        const newGroup = await createGroup(name).catch(() =>
-            next(new ErrorHandler(), 503)
-        );
-
-        if (newGroup && newGroup.length) {
-            res.status(201).json({
-                message: "Created",
-                status: 201,
-                date: newGroup,
-            });
+    CALCULATOR: async (req, res, next) => {
+        const { year, meter, sum } = req.query;
+        if ((!year, !meter, !sum)) {
+            return next(new ErrorHandler("Bad request", 400));
         }
-    },
 
-    PUT: async (req, res, next) => {
-        const { id } = req.params;
-        const { name } = req.filtered;
-        const updatedGroup = await updateGroup(name, id);
+        const HOME_PRICE = Number(sum.split(" ").join("")) * Number(meter);
 
-        if (updatedGroup && updatedGroup.length) {
-            res.status(200).json({
-                message: "Updated",
-                status: 200,
-                date: updatedGroup,
-            });
-        }
+        const bankConc = await findBank(HOME_PRICE, year);
+        const startingPayment =
+            (HOME_PRICE * Number(bankConc.map((e) => e.starting_payment))) /
+            100;
+
+        const monthlyPayment = (HOME_PRICE - startingPayment) / (year * 12);
+
+        res.json({
+            HOME_PRICE,
+            bankConc,
+            startingPayment,
+            monthlyPayment,
+        });
     },
 };

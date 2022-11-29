@@ -12,9 +12,6 @@ export const loginMiddleware = (err, req, res, next) => {
         });
     }
 
-    req.role = foundUser.role;
-
-    console.log(req.role);
     req.id = foundUser.id;
     next();
 };

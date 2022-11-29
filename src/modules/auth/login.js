@@ -4,7 +4,7 @@ import { auth } from "./model";
 export default {
     LOGIN: (req, res) => {
         try {
-            const { id, role } = req;
+            const { id } = req;
 
             const { name, password } = req.body;
 

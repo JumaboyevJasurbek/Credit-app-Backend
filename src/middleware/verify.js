@@ -5,11 +5,12 @@ import { ErrorHandler } from "../exceptions/errorHandler.js";
 dotenv.config();
 
 export default (req, _, next) => {
-    const { token_status } = req.cookies;
+    const { token_status } = req.headers;
 
-    console.log(req);
+    console.log(req.headers);
 
     if (token_status != true) {
+        console.log(token_status);
         return next(new ErrorHandler("Provide access token", 401));
     }
 

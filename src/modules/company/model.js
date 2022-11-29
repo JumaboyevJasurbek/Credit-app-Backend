@@ -4,36 +4,42 @@ const ALL_COMPANY = `
     select * from company
 `;
 
-// const NEW_COURSES = `
-//         call newCourses($1, $2)
-// `;
+const FIND_COMPANY = `
+    Select * from company where company_id = $1
+`;
 
-// const UPDATE_COURSE = `
-//         call updateCourses($1, $2, $3)
-// `;
+const NEW_COMPANY = `
+    insert into company(company_name, company_img) values ($1, $2)
+`;
+const UPDATE_COMPANY = `
+    UPDATE company SET company_name = $1, company_img = $2 WHERE company_id = $3 RETURNING *
+`;
 
-// const DELETE_COURSE = `
-//         call deleteCourses($1)
-// `;
-
-// const SELECT_ID = `
-// SELECT * FROM courses where course_id = $1`;
+const DELETE_COMPANY = `
+    DELETE FROM company where company_id = $1`;
 
 export const allCompany = () => fetchData(ALL_COMPANY);
-// export const createCourse = (title, price) =>
-//     fetchData(NEW_COURSES, title, price);
 
-// export const updateCourse = async (title, price, id) => {
-//     const [oldCourse] = await fetchData(SELECT_ID, id);
+export const findCompany = (id) => fetchData(FIND_COMPANY, id);
 
-//     await fetchData(
-//         UPDATE_COURSE,
-//         title ? title : oldCourse.title,
-//         price ? price : oldCourse.price,
-//         id
-//     );
-// };
+export const createCompany = (name, img) => fetchData(NEW_COMPANY, name, img);
 
-// export const deleteCourse = async (id) => {
-//     await fetchData(DELETE_COURSE, id);
-// };
+export const updateCompany = async (name, img, id) => {
+    const [oldCompany] = await fetchData(
+        `SELECT * FROM company where company_id = $1`,
+        id
+    );
+
+    console.log(oldCompany);
+
+    await fetchData(
+        UPDATE_COMPANY,
+        name ? name : oldCompany.company_name,
+        img ? img : oldCompany.company_img,
+        id
+    );
+};
+
+export const deleteCompany = async (id) => {
+    await fetchData(DELETE_COMPANY, id);
+};

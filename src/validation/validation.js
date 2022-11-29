@@ -1,29 +1,54 @@
 import Joi from "joi";
 
-export const CoursePostSchema = Joi.object({
-    title: Joi.string().required().max(64),
-    price: Joi.number().required(),
-}).required();
-
 export const LoginPostSchema = Joi.object({
     username: Joi.string().required().max(64),
     password: Joi.string().required(),
-    role: Joi.string(),
 }).required();
 
-export const CoursePutSchema = Joi.object({
-    title: Joi.string().max(64),
-    price: Joi.number().max(15000000),
+export const CompanyPostSchema = Joi.object({
+    name: Joi.string().required().max(64),
+    img: Joi.string().required(),
 }).required();
 
-export const CourseDeleteSchema = Joi.object({
-    id: Joi.number(),
+export const CompanyPutSchema = Joi.object({
+    name: Joi.string().max(64),
+    img: Joi.string(),
 }).required();
 
-export const GroupPostSchema = Joi.object({
-    title: Joi.string().required().max(64),
+export const ComplexPostSchema = Joi.object({
+    name: Joi.string().required().max(64),
+    company: Joi.string().required(),
 }).required();
 
-export const GroupPutSchema = Joi.object({
-    title: Joi.string().max(64),
+export const ComplexPutSchema = Joi.object({
+    name: Joi.string().max(64),
+    company: Joi.string(),
+}).required();
+
+export const BankPostSchema = Joi.object({
+    name: Joi.string().required().max(64),
+    upto: Joi.string().required(),
+    duration: Joi.string().required(),
+    starting: Joi.string().required(),
+}).required();
+
+export const BankPutSchema = Joi.object({
+    name: Joi.string().max(64),
+    upto: Joi.string(),
+    duration: Joi.string(),
+    starting: Joi.string(),
+}).required();
+
+export const RoomPostSchema = Joi.object({
+    room_count: Joi.number().required().max(64),
+    square_sum: Joi.string().required(),
+    room_meter_square: Joi.number().required(),
+    complex: Joi.string().required(),
+}).required();
+
+export const RoomPutSchema = Joi.object({
+    room_count: Joi.number().max(64),
+    square_sum: Joi.string(),
+    room_meter_square: Joi.number(),
+    complex: Joi.string(),
 }).required();
