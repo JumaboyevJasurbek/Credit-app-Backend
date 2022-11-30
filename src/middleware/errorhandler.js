@@ -15,5 +15,5 @@ export default (err, req, res, next) => {
         });
     }
 
-    next(res.json(err.message));
+    // next(res.json(err.message));
 };
