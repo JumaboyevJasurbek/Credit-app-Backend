@@ -1,4 +1,4 @@
-import { ErrorHandler } from "../../exceptions/ErrorHandler.js";
+import { ErrorHandler } from "../../exceptions/errorHandler.js";
 import { sign } from "../../utils/jwt.js";
 import { findBank, loginAdmin } from "./model.js";
 
