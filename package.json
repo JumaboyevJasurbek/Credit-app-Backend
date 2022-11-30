@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "SET NODE_ENV=Development&& nodemon ./src/server.js",
-        "start": "SET NODE_ENV=production&& node ./src/server.js"
+        "start": "NODE_ENV=production&& node ./src/server.js"
     },
     "keywords": [],
     "author": "",
