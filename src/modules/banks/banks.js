@@ -6,13 +6,15 @@ export default {
     },
 
     POST: async (req, res, next) => {
-        const { name, upto, duration, starting } = req.filtered;
+        const { name, upto, duration, starting, img } = req.filtered;
 
-        const newBank = await createBanks(name, upto, duration, starting).catch(
-            () => next(new ErrorHandler(), 503)
-        );
-
-        console.log(newBank);
+        const newBank = await createBanks(
+            name,
+            upto,
+            duration,
+            starting,
+            img
+        ).catch(() => next(new ErrorHandler(), 503));
 
         res.status(201).json({
             message: "Created",
@@ -23,13 +25,14 @@ export default {
 
     PUT: async (req, res, _) => {
         const { id } = req.params;
-        const { name, upto, duration, starting } = req.filtered;
+        const { name, upto, duration, starting, img } = req.filtered;
 
         const updatedBank = await updateBanks(
             name,
             upto,
             duration,
             starting,
+            img,
             id
         );
 
@@ -45,7 +48,7 @@ export default {
 
         const deletedBank = await deleteBanks(id);
 
-        res.status(204).json({
+        res.json({
             message: "Deleted",
             status: 204,
             date: deletedBank,

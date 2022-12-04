@@ -1,7 +1,14 @@
 import { fetchData } from "../../utils/postgres.js";
 
 const ROOMS = `
-    select * from room
+    select
+        *
+    from 
+        room
+    join
+        complex
+    on
+        room.complex_id = complex.complex_id
 `;
 
 const SELECT_ROOM = `

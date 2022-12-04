@@ -4,7 +4,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "dev": "SET NODE_ENV=Development&& nodemon ./src/server.js",
+        "dev": "NODE_ENV=Development&& nodemon ./src/server.js",
         "start": "NODE_ENV=production&& node ./src/server.js"
     },
     "keywords": [],
