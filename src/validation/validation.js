@@ -30,7 +30,7 @@ export const BankPostSchema = Joi.object({
     upto: Joi.string().required(),
     duration: Joi.string().required(),
     starting: Joi.string().required(),
-    // img: Joi.string().required(),
+    img: Joi.string().required(),
 }).required();
 
 export const BankPutSchema = Joi.object({
@@ -38,6 +38,7 @@ export const BankPutSchema = Joi.object({
     upto: Joi.string(),
     duration: Joi.string(),
     starting: Joi.string(),
+    img: Joi.string().required(),
 }).required();
 
 export const RoomPostSchema = Joi.object({

@@ -1,3 +1,4 @@
+import { ErrorHandler } from "../../exceptions/errorHandler.js";
 import {
     allCompany,
     createCompany,
@@ -28,7 +29,7 @@ export default {
         res.status(201).json({
             message: "Created",
             status: 201,
-            date: newCompany,
+            data: newCompany,
         });
     },
 

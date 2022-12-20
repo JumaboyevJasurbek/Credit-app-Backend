@@ -19,7 +19,7 @@ export default {
         res.status(201).json({
             message: "Created",
             status: 201,
-            date: newBank,
+            data: newBank,
         });
     },
 

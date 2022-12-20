@@ -34,6 +34,7 @@ export default {
             });
         }
     },
+    
     CALCULATOR: async (req, res, next) => {
         const { year, meter, sum } = req.query;
         if ((!year, !meter, !sum)) {

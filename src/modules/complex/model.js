@@ -2,7 +2,7 @@ import { fetchData } from "../../utils/postgres.js";
 
 const ALL_COMPLEX = `
     select
-         complex_name, company_name
+         *
     from
         complex
     join

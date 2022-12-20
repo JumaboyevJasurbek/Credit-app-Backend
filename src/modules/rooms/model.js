@@ -5,10 +5,14 @@ const ROOMS = `
         *
     from 
         room
-    join
+    right join
         complex
     on
         room.complex_id = complex.complex_id
+    join
+        company c
+    on
+        c.company_id = complex.company_id
 `;
 
 const SELECT_ROOM = `
