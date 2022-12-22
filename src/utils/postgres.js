@@ -1,13 +1,13 @@
-// import pg from "pg";
+import pg from "pg";
 
 import dotenv from "dotenv";
 dotenv.config();
-// const { Pool } = pg;
+const { Pool } = pg;
 
-// const pool = new Pool({
-//     connectionString:
-//         process.env.CONNECTION_PROD_STRING ?? CONNECTION_DEV_STRING,
-// });
+const pool = new Pool({
+    connectionString:
+        process.env.CONNECTION_PROD_STRING ?? CONNECTION_DEV_STRING,
+});
 
 export const fetchData = async (SQL, ...params) => {
     const client = await pool.connect();

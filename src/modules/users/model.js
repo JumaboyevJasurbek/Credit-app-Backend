@@ -5,8 +5,16 @@ const USER_BY_CREDENTIAL = `
 `;
 
 const FIND_BANK = `
-select * from banks where REPLACE(upto, ' ', '')::bigint >= $1 and mortgage_duration::bigint = $2
-order by REPLACE(upto, ' ', '')::bigint
+select 
+    * 
+from 
+    banks
+where 
+    REPLACE(upto, ' ', '')::bigint >= $1
+and 
+    mortgage_duration::bigint = $2
+order by
+     REPLACE(upto, ' ', '')::bigint
 offset 0 limit 1
 
 `;

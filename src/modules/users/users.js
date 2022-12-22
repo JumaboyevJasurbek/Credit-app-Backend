@@ -34,7 +34,7 @@ export default {
             });
         }
     },
-    
+
     CALCULATOR: async (req, res, next) => {
         const { year, meter, sum } = req.query;
         if ((!year, !meter, !sum)) {
@@ -49,6 +49,8 @@ export default {
             100;
 
         const monthlyPayment = (HOME_PRICE - startingPayment) / (year * 12);
+
+        console.log(bankConc);
 
         res.json({
             HOME_PRICE,
