@@ -1,57 +1,44 @@
-import { allBanks, createBanks, deleteBanks, updateBanks } from "./model.js";
+import { allBanks, createBanks, deleteBanks, updateBanks } from './model.js';
 
 export default {
-    GET: async (_, res, __) => {
-        res.json(await allBanks());
-    },
+	GET: async (_, res, __) => {
+		res.json(await allBanks());
+	},
 
-    POST: async (req, res, next) => {
-        const { name, upto, duration, starting, img } = req.filtered;
+	POST: async (req, res, next) => {
+		const { name, upto, duration, starting, img } = req.filtered;
 
-        const newBank = await createBanks(
-            name,
-            upto,
-            duration,
-            starting,
-            img
-        ).catch(() => next(new ErrorHandler(), 503));
+		const newBank = await createBanks(name, upto, duration, starting, img).catch(() => next(new ErrorHandler(), 503));
 
-        res.status(201).json({
-            message: "Created",
-            status: 201,
-            data: newBank,
-        });
-    },
+		res.status(201).json({
+			message: 'Created',
+			status: 201,
+			data: newBank,
+		});
+	},
 
-    PUT: async (req, res, _) => {
-        const { id } = req.params;
-        const { name, upto, duration, starting, img } = req.filtered;
+	PUT: async (req, res, _) => {
+		const { id } = req.params;
+		const { name, upto, duration, starting, img } = req.filtered;
 
-        const updatedBank = await updateBanks(
-            name,
-            upto,
-            duration,
-            starting,
-            img,
-            id
-        );
+		const updatedBank = await updateBanks(name, upto, duration, starting, img, id);
 
-        res.status(204).json({
-            message: "Updated",
-            status: 204,
-            date: updatedBank,
-        });
-    },
+		res.status(204).json({
+			message: 'Updated',
+			status: 204,
+			date: updatedBank,
+		});
+	},
 
-    DELETE: async (req, res, next) => {
-        const { id } = req.params;
+	DELETE: async (req, res, next) => {
+		const { id } = req.params;
 
-        const deletedBank = await deleteBanks(id);
+		const deletedBank = await deleteBanks(id);
 
-        res.json({
-            message: "Deleted",
-            status: 204,
-            date: deletedBank,
-        });
-    },
+		res.json({
+			message: 'Deleted',
+			status: 204,
+			date: deletedBank,
+		});
+	},
 };
